@@ -157,14 +157,14 @@ export default function LeopoldMatrix({ impactos }: { impactos: ImpactoBase[] })
                     
                     return (
                       <td key={`${action.id}-${factor.id}`} className="p-1 border-r border-b">
-                        {cell ? (
-                          <div className={`p-2 rounded text-center ${getCellColor(cell.S)}`}>
-                            <div className="font-bold text-sm">{cell.magnitud >= 0 ? '+' : ''}{cell.magnitud}</div>
-                            <div className="text-xs border-t border-current">{cell.importancia}</div>
-                            <div className="text-xs font-semibold mt-1">S={cell.S}</div>
+                          {cell ? (
+                          <div aria-label={`Celda impacto ${cell.impactoId}`} className={`p-2 rounded text-center ${getCellColor(cell.S)}`}>
+                            <div className="font-bold text-sm" aria-hidden>{cell.magnitud >= 0 ? '+' : ''}{cell.magnitud}</div>
+                            <div className="text-xs border-t border-current" aria-hidden>{cell.importancia}</div>
+                            <div className="text-xs font-semibold mt-1" aria-live="polite">S={cell.S}</div>
                           </div>
                         ) : (
-                          <div className="p-2 text-center text-gray-300">—</div>
+                          <div className="p-2 text-center text-gray-300" aria-hidden>—</div>
                         )}
                       </td>
                     );

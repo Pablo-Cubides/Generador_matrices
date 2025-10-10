@@ -144,15 +144,17 @@ export default function BattelleTable({ impactos }: { impactos: ImpactoBase[] })
                     min="1"
                     max="1000"
                     value={impact.uip}
+                    aria-label={`UIP impacto ${impact.impactoId}`}
                     onChange={(e) => updateImpact(impact.impactoId, 'uip', parseInt(e.target.value) || 1)}
-                    className="w-20 text-center border rounded px-1"
+                    className="w-20 text-center border rounded px-1 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-200"
                   />
                 </td>
                 <td className="border border-gray-300 p-2 text-center">
                   <select
                     value={impact.calidad_sin}
+                    aria-label={`Calidad sin proyecto impacto ${impact.impactoId}`}
                     onChange={(e) => updateImpact(impact.impactoId, 'calidad_sin', parseFloat(e.target.value))}
-                    className="w-full border rounded px-1"
+                    className="w-full border rounded px-1 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-200"
                   >
                     <option value={1}>1 - Muy mala</option>
                     <option value={2}>2 - Mala</option>
@@ -163,8 +165,9 @@ export default function BattelleTable({ impactos }: { impactos: ImpactoBase[] })
                 <td className="border border-gray-300 p-2 text-center">
                   <select
                     value={impact.calidad_con}
+                    aria-label={`Calidad con proyecto impacto ${impact.impactoId}`}
                     onChange={(e) => updateImpact(impact.impactoId, 'calidad_con', parseFloat(e.target.value))}
-                    className="w-full border rounded px-1"
+                    className="w-full border rounded px-1 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-200"
                   >
                     <option value={1}>1 - Muy mala</option>
                     <option value={2}>2 - Mala</option>

@@ -124,9 +124,10 @@ export default function ConesaForm({ impactos }: { impactos: ImpactoBase[] }) {
                 <div key={key} className="text-center">
                   <label className="block text-xs font-medium mb-1">{label}</label>
                   <select 
+                    aria-label={`${label} impacto ${impact.impactoId}`}
                     value={impact[key as keyof ConesaImpact] as number}
                     onChange={(e) => updateImpact(impact.impactoId, key as keyof ConesaImpact, parseInt(e.target.value))}
-                    className="w-full text-sm border rounded px-1 py-1"
+                    className="w-full text-sm border rounded px-1 py-1 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-200"
                   >
                     {key === 'IN' && [1,2,4,8,12].map(v => <option key={v} value={v}>{v}</option>)}
                     {key === 'EX' && [1,2,4,8].map(v => <option key={v} value={v}>{v}</option>)}
