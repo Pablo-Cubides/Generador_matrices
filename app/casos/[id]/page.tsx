@@ -1,9 +1,8 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 
-export default function CasoPage(props: any): React.ReactElement {
-  const { params } = props;
-  const id = params?.id as string;
+export default function CasoPage({ params }: any) {
+  const id = params.id as string;
   const examples: Record<string, any> = {
     'vias': { nombre: 'Vía regional', sector: 'Infraestructura', desc: 'Tramo vial 20 km' },
     'mineria': { nombre: 'Mina', sector: 'Minería', desc: 'Mina a rajo abierto' }

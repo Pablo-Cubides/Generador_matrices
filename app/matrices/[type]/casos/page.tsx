@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export default async function MatrixCasesPage(props: any) {
-  const params = props?.params;
-  const type = params?.type as string;
+type MatrixCasesProps = { params: { type: string } };
+
+export default async function MatrixCasesPage({ params }: any) {
+  const type = params.type as string;
   const matrixTitles: Record<string, string> = {
     leopold: 'Leopold',
     conesa: 'Conesa', 

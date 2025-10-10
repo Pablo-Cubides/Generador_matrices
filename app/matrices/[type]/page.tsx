@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export default async function MatrixDetailPage(props: any) {
-  const params = props?.params;
-  const type = params?.type as string;
+type MatrixDetailProps = { params: { type: string } };
+
+export default async function MatrixDetailPage({ params }: any) {
+  const type = params.type as string;
   const matrixData: Record<string, any> = {
     leopold: {
       title: 'Matriz de Leopold',
