@@ -32,24 +32,59 @@ export default function ExportButtons({ matrixType, caseId, data, matrixRef }: E
     doc.text(`Generado: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 20, pageHeight - 10);
 
     if (matrixType === 'leopold' && matrixRef?.current) {
-      // Capturar la matriz Leopold como imagen
+      // Capturar la matriz Leopold como imagen (mejorar robustez y usar fallback de tabla)
       try {
-        const canvas = await html2canvas(matrixRef.current, {
+        const el = matrixRef.current;
+        const scale = typeof window !== 'undefined' ? (window.devicePixelRatio || 2) : 2;
+        const canvas = await html2canvas(el, ({
           useCORS: true,
-          allowTaint: true,
           logging: false,
-          width: matrixRef.current.scrollWidth,
-          height: matrixRef.current.scrollHeight
-        });
-        
+          scale
+        } as any));
+
         const imgData = canvas.toDataURL('image/png');
         const imgWidth = pageWidth - 40;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
-        doc.addImage(imgData, 'PNG', 20, 50, imgWidth, imgHeight);
+
+        // If image is taller than page, split it or fallback to table
+        if (imgHeight < pageHeight - 80) {
+          doc.addImage(imgData, 'PNG', 20, 50, imgWidth, imgHeight);
+        } else {
+          // Fallback: export tabla con autotable para mayor control de paginación
+          doc.text('Vista previa extensa: exportando como tabla...', 20, 60);
+          // intentar extraer filas simples del DOM si es posible
+          const rows: any[] = [];
+          try {
+            const table = el.querySelector('table');
+            if (table) {
+              const headers = Array.from(table.querySelectorAll('thead th')).map(h => (h.textContent || '').trim());
+              const bodyRows = Array.from(table.querySelectorAll('tbody tr'));
+              bodyRows.forEach(r => {
+                const cols = Array.from(r.querySelectorAll('td')).map(td => (td.textContent || '').trim());
+                rows.push(cols);
+              });
+              autoTable(doc, { startY: 70, head: [headers], body: rows, styles: { fontSize: 8 } });
+            } else {
+              doc.text('No se pudo obtener la tabla para exportar.', 20, 70);
+            }
+          } catch (err) {
+            console.error('Error building fallback table:', err);
+            doc.text('Error al generar la tabla de fallback', 20, 70);
+          }
+        }
       } catch (error) {
         console.error('Error capturing matrix:', error);
-        doc.text('Error al capturar la matriz', 20, 60);
+        // Fallback simple: crear tabla a partir de data
+        try {
+          autoTable(doc, {
+            startY: 50,
+            head: [['Impacto', 'Magnitud', 'Importancia', 'S']],
+            body: (data || []).map((d: any) => [d.impactoId || '-', d.magnitud || '-', d.importancia || '-', d.S || '-']),
+            styles: { fontSize: 8 }
+          });
+        } catch (err) {
+          doc.text('Error al generar PDF de respaldo', 20, 60);
+        }
       }
     } else if (matrixType === 'conesa') {
       // Tabla para Conesa

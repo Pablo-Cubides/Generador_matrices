@@ -36,19 +36,19 @@ export function computeConesa(impact: Partial<ConesaImpact>): ConesaImpact {
 }
 
 export function computeBattelleParam(param: Partial<BattelleParam>): BattelleParam {
-  const UIP = Math.max(0, Math.min(1, param.UIP ?? 0));
-  const calidadSin = Math.max(0, Math.min(1, param.calidadSin ?? 0));
-  const calidadCon = Math.max(0, Math.min(1, param.calidadCon ?? 0));
-  const UIA = UIP * (calidadCon - calidadSin);
+  const uip = Math.max(1, Math.min(1000, param.uip ?? 1));
+  const calidad_sin = Math.max(1, Math.min(4, param.calidad_sin ?? 1));
+  const calidad_con = Math.max(1, Math.min(4, param.calidad_con ?? 1));
+  const uia = uip * (calidad_con - calidad_sin);
   return {
     id: param.id ?? 'p',
     categoria: param.categoria ?? '',
     componente: param.componente ?? '',
     parametro: param.parametro ?? '',
-    UIP,
-    calidadSin,
-    calidadCon,
-    UIA
+    uip,
+    calidad_sin,
+    calidad_con,
+    uia
   } as BattelleParam;
 }
 

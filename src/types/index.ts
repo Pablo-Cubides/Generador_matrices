@@ -41,12 +41,12 @@ export type ConesaImpact = {
 export type BattelleParam = {
   id: string;
   categoria: string;
-  componente: string;
-  parametro: string;
-  UIP: number; // 0..1
-  calidadSin: number; // 0..1
-  calidadCon: number; // 0..1
-  UIA: number;
+  componente?: string;
+  parametro?: string;
+  uip: number; // 1..1000 (Unidades de Importancia del Parámetro)
+  calidad_sin: number; // 1..4 (Calidad sin proyecto)
+  calidad_con: number; // 1..4 (Calidad con proyecto)
+  uia: number;
 };
 
 export type BattelleCategory = 'FÍSICO-QUÍMICO' | 'BIOLÓGICO' | 'CULTURAL' | 'ECOLÓGICO-ESTÉTICO';

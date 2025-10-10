@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "parse:docx": "node scripts/parse_docx.js"
+    "parse:docx": "node scripts/parse_docx.js",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "autoprefixer": "^10.4.0",
@@ -32,6 +34,7 @@
     "@types/jspdf": "^1.3.3",
     "@types/node": "^24.3.1",
     "@types/react": "^19.1.12",
-    "@types/react-dom": "^19.1.9"
+    "@types/react-dom": "^19.1.9",
+    "vitest": "^1.3.0"
   }
 }

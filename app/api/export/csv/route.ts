@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { stringify } from 'csv-stringify/lib/sync';
+import { stringify } from 'csv-stringify/sync';
 
 export async function POST(request: Request) {
   const body = await request.json();
