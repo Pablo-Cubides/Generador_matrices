@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Evitar indexar APIs
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://eia-matrix-studio.vercel.app/sitemap.xml

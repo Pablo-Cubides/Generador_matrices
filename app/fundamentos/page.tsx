@@ -1,5 +1,16 @@
 import fs from 'fs';
 import path from 'path';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Fundamentos de Evaluación de Impacto Ambiental',
+  description: 'Aprende los conceptos básicos de EIA: qué son las matrices ambientales, metodologías, normativa y mejores prácticas para evaluar impactos ambientales de proyectos.',
+  keywords: ['fundamentos EIA', 'evaluación impacto ambiental', 'metodología ambiental', 'conceptos EIA'],
+  openGraph: {
+    title: 'Fundamentos de Evaluación de Impacto Ambiental',
+    description: 'Conceptos básicos y fundamentos de EIA para estudiantes y profesionales',
+  },
+};
 
 export default async function Fundamentos() {
   const kbPath = path.join(process.cwd(), 'content', 'knowledge', 'knowledge.json');

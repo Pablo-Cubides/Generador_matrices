@@ -1,10 +1,31 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
-type MatrixCasesProps = { params: { type: string } };
+type MatrixCasesProps = { params: Promise<{ type: string }> };
 
-export default async function MatrixCasesPage({ params }: any) {
-  const type = params.type as string;
+const matrixTitles: Record<string, string> = {
+  leopold: 'Leopold',
+  conesa: 'Conesa', 
+  battelle: 'Battelle-Columbus'
+};
+
+export async function generateMetadata({ params }: MatrixCasesProps): Promise<Metadata> {
+  const { type } = await params;
+  const matrixName = matrixTitles[type as keyof typeof matrixTitles] || 'Matriz';
+  
+  return {
+    title: `Casos de Estudio - Matriz ${matrixName}`,
+    description: `Explora casos de estudio reales para aplicar la matriz ${matrixName}: infraestructura, minería, ecoturismo y energía. Aprende con ejemplos prácticos.`,
+    openGraph: {
+      title: `Casos de Estudio - Matriz ${matrixName}`,
+      description: `Casos de estudio reales para la matriz ${matrixName}`,
+    },
+  };
+}
+
+export default async function MatrixCasesPage({ params }: { params: Promise<{ type: string }> }) {
+  const { type } = await params;
   const matrixTitles: Record<string, string> = {
     leopold: 'Leopold',
     conesa: 'Conesa', 

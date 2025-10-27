@@ -1,10 +1,46 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
-type MatrixDetailProps = { params: { type: string } };
+type MatrixDetailProps = { params: Promise<{ type: string }> };
 
-export default async function MatrixDetailPage({ params }: any) {
-  const type = params.type as string;
+const matrixInfo: Record<string, { title: string; description: string }> = {
+  leopold: {
+    title: 'Matriz de Leopold',
+    description: 'La matriz clásica de EIA desarrollada en 1971. Utiliza magnitud (-10 a +10) e importancia (1 a 10) para evaluar impactos ambientales de forma rápida y visual.'
+  },
+  conesa: {
+    title: 'Matriz de Conesa',
+    description: 'Metodología española multicriterio con 10 atributos. Evalúa intensidad, extensión, momento, persistencia y más para clasificar impactos como irrelevantes, moderados, severos o críticos.'
+  },
+  battelle: {
+    title: 'Sistema Battelle-Columbus',
+    description: 'Sistema cuantitativo que usa Unidades de Importancia (UIP) y calidad ambiental (0-1) para análisis económico-ambiental detallado de proyectos.'
+  }
+};
+
+export async function generateMetadata({ params }: MatrixDetailProps): Promise<Metadata> {
+  const { type } = await params;
+  const info = matrixInfo[type as keyof typeof matrixInfo];
+  
+  if (!info) {
+    return {
+      title: 'Matriz no encontrada',
+    };
+  }
+  
+  return {
+    title: info.title,
+    description: info.description,
+    openGraph: {
+      title: `${info.title} - EIA Matrix Studio`,
+      description: info.description,
+    },
+  };
+}
+
+export default async function MatrixDetailPage({ params }: { params: Promise<{ type: string }> }) {
+  const { type } = await params;
   const matrixData: Record<string, any> = {
     leopold: {
       title: 'Matriz de Leopold',

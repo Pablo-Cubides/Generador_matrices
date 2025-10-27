@@ -1,4 +1,15 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Casos de Estudio - Proyectos Reales de EIA',
+  description: 'Explora casos de estudio reales: infraestructura vial, minería, ecoturismo y centrales hidroeléctricas. Aprende a aplicar matrices EIA con ejemplos prácticos del mundo real.',
+  keywords: ['casos estudio EIA', 'proyectos ambientales', 'ejemplos matriz ambiental', 'estudios impacto'],
+  openGraph: {
+    title: 'Casos de Estudio - Proyectos Reales de EIA',
+    description: 'Casos de estudio reales para aplicar matrices de evaluación ambiental',
+  },
+};
 
 const sampleCases = [
   { id: 'vias', sector: 'Infraestructura', nombre: 'Vía regional', descripcion: 'Construcción de tramo vial', factoresSensibles: ['cuenca', 'comunidades'] },

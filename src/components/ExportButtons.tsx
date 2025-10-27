@@ -1,8 +1,5 @@
 'use client';
 import React from 'react';
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 
 interface ExportButtonsProps {
   matrixType: 'leopold' | 'conesa' | 'battelle';
@@ -14,6 +11,15 @@ interface ExportButtonsProps {
 export default function ExportButtons({ matrixType, caseId, data, matrixRef }: ExportButtonsProps) {
   
   const exportToPDF = async () => {
+    // Dynamic imports para reducir bundle inicial
+    const jsPDFModule = await import('jspdf');
+    const autoTableModule = await import('jspdf-autotable');
+    const html2canvasModule = await import('html2canvas');
+    
+    const jsPDF = jsPDFModule.default;
+    const autoTable = (autoTableModule as any).default;
+    const html2canvas = html2canvasModule.default;
+    
     const doc = new jsPDF('landscape', 'mm', 'a4');
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
@@ -172,46 +178,47 @@ export default function ExportButtons({ matrixType, caseId, data, matrixRef }: E
     document.body.removeChild(link);
   };
 
-  const exportToExcel = () => {
-    // For Excel, we'll use CSV format with Excel-specific formatting
-    let excelContent = '';
-    let filename = '';
-
-    if (matrixType === 'leopold' && data) {
-      excelContent = 'sep=,\nMatriz Leopold - Resultados\n\n';
-      excelContent += 'Impacto ID,Magnitud,Importancia,Significancia,Interpretación\n';
-      data.forEach((item: any) => {
-        const interpretation = Math.abs(item.S) >= 60 ? 'Crítico' : Math.abs(item.S) >= 40 ? 'Moderado' : 'Leve';
-        excelContent += `${item.impactoId},${item.magnitud},${item.importancia},${item.S},${interpretation}\n`;
-      });
-      filename = `leopold-${caseId}`;
-    } else if (matrixType === 'conesa' && data) {
-      excelContent = 'sep=,\nMatriz Conesa - Resultados\n\n';
-      excelContent += 'Impacto ID,Intensidad,Extensión,Momento,Persistencia,Reversibilidad,Sinergia,Acumulación,Efecto,Periodicidad,Recuperabilidad,Importancia,Categoría\n';
-      data.forEach((item: any) => {
-        excelContent += `${item.impactoId},${item.IN},${item.EX},${item.MO},${item.PE},${item.RV},${item.SI},${item.AC},${item.EF},${item.PR},${item.MC},${item.I},${item.categoria}\n`;
-      });
-      filename = `conesa-${caseId}`;
-    } else if (matrixType === 'battelle' && data) {
-      excelContent = 'sep=,\nMatriz Battelle-Columbus - Resultados\n\n';
-      excelContent += 'Impacto ID,Categoría,UIP,Calidad Sin Proyecto,Calidad Con Proyecto,PIA Sin,PIA Con,UIA,Interpretación\n';
-      data.forEach((item: any) => {
-        const interpretation = item.uia > 0 ? 'Positivo' : item.uia < 0 ? 'Negativo' : 'Neutral';
-        excelContent += `${item.impactoId},${item.categoria},${item.uip},${item.calidad_sin},${item.calidad_con},${item.pia_sin},${item.pia_con},${item.uia},${interpretation}\n`;
-      });
-      filename = `battelle-${caseId}`;
+  const exportToExcel = async () => {
+    // Dynamic import de XLSX para optimizar bundle
+    const XLSX = await import('xlsx');
+    
+    // Client-side .xlsx generation using SheetJS
+    try {
+      const ws = XLSX.utils.json_to_sheet((data as any[]) || []);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Matriz');
+      const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([wbout], { type: 'application/octet-stream' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      const filename = `matriz-${matrixType}-${caseId}-${new Date().toISOString().slice(0, 10)}.xlsx`;
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      // Fallback: request server to generate xlsx
+      try {
+        const resp = await fetch('/api/export/xlsx', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data })
+        });
+        const blob = await resp.blob();
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = `matriz-${matrixType}-${caseId}-${new Date().toISOString().slice(0, 10)}.xlsx`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (err2) {
+        console.error('Error exporting to Excel', err2);
+      }
     }
-
-    // Download Excel
-    const blob = new Blob([excelContent], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', `${filename}-${new Date().toISOString().slice(0, 10)}.xls`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   return (

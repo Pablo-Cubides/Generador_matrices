@@ -3,9 +3,23 @@
 ![Next.js](https://img.shields.io/badge/Next.js-15.5.2-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC)
-![Status](https://img.shields.io/badge/Status-✅%20Completo-success)
+![Status](https://img.shields.io/badge/Status-✅%20Production%20Ready-success)
+![Tests](https://img.shields.io/badge/Tests-4%2F4%20passing-brightgreen)
 
 **Herramienta educativa interactiva para la construcción y análisis de matrices de Evaluación de Impacto Ambiental (EIA)**
+
+---
+
+## 🚀 **PRODUCTION READY** - Optimizado para Producción
+
+✅ **SEO Completo**: Metadata en todas las páginas  
+✅ **Performance**: Bundle optimizado con dynamic imports  
+✅ **Seguridad**: Headers de seguridad configurados  
+✅ **Accesibilidad**: ARIA labels y navegación por teclado  
+✅ **Tests**: 4/4 tests pasando  
+✅ **Error Handling**: Páginas de error personalizadas  
+
+---
 
 ## 🎯 Características Principales
 
@@ -44,10 +58,33 @@ npm install
 
 # Ejecutar en desarrollo
 npm run dev
+
+# Build de producción
+npm run build
+
+# Ejecutar tests
+npm test
 ```
 
 ### **Acceso**
 Abrir [http://localhost:3000](http://localhost:3000) en el navegador
+
+### **Deploy a Producción**
+
+#### Vercel (Recomendado)
+```bash
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel --prod
+```
+
+#### Variables de Entorno (Opcional)
+```env
+# .env.local
+NEXT_PUBLIC_SITE_URL=https://tu-dominio.com
+```
 
 ## 📋 Estructura del Proyecto
 
@@ -118,11 +155,38 @@ Abrir [http://localhost:3000](http://localhost:3000) en el navegador
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Frontend**: Next.js 15, React 18, TypeScript
+- **Frontend**: Next.js 15 (App Router), React 18, TypeScript
 - **Styling**: Tailwind CSS, shadcn/ui  
-- **Exportación**: jsPDF, html2canvas
-- **Procesamiento**: Mammoth.js (documentos Word)
+- **Exportación**: jsPDF, html2canvas, SheetJS (XLSX)
+- **Testing**: Vitest, Testing Library
+- **CI/CD**: GitHub Actions
 - **Deploy**: Vercel-ready
+
+## 🎯 Características de Producción
+
+### SEO Optimizado
+- ✅ Metadata completa en todas las páginas
+- ✅ Open Graph para redes sociales
+- ✅ Sitemap.xml y robots.txt
+- ✅ Títulos y descripciones dinámicas
+
+### Performance
+- ✅ First Load JS: 102 KB (optimizado)
+- ✅ Dynamic imports para librerías pesadas
+- ✅ Compresión habilitada
+- ✅ Imágenes optimizadas (AVIF/WebP)
+
+### Seguridad
+- ✅ Headers de seguridad (HSTS, CSP, X-Frame-Options)
+- ✅ Validación de inputs en APIs
+- ✅ Rate limiting preparado
+- ✅ Sin variables de entorno expuestas
+
+### Accesibilidad (A11y)
+- ✅ ARIA labels en componentes interactivos
+- ✅ Navegación por teclado
+- ✅ Contraste de colores adecuado
+- ✅ Estados de loading accesibles
 
 ## 📊 Casos de Estudio Incluidos
 

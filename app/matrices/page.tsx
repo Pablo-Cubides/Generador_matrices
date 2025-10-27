@@ -1,6 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Matrices de EIA - Leopold, Conesa y Battelle',
+  description: 'Conoce las tres metodologías principales de Evaluación de Impacto Ambiental: Matriz Leopold, Matriz Conesa y Sistema Battelle-Columbus. Aprende cuándo usar cada una.',
+  keywords: ['matriz leopold', 'matriz conesa', 'battelle columbus', 'metodologías EIA', 'evaluación ambiental'],
+  openGraph: {
+    title: 'Matrices de EIA - Leopold, Conesa y Battelle',
+    description: 'Conoce las tres metodologías principales de Evaluación de Impacto Ambiental',
+  },
+};
 
 export default function MatricesPage() {
   const kbPath = path.join(process.cwd(), 'content', 'knowledge', 'knowledge.json');
