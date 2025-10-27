@@ -10,6 +10,7 @@ export default function sitemap() {
     '/selector',
     '/fundamentos',
     '/casos',
+    '/faq',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

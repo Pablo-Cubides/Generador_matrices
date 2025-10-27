@@ -214,11 +214,14 @@ export default async function MatrixCasesPage({ params }: { params: Promise<{ ty
       <div className="bg-gray-50 rounded-lg p-6 text-center">
         <h3 className="font-bold text-lg mb-2">¿No encuentras el caso que buscas?</h3>
         <p className="text-gray-600 mb-4">Puedes crear tu propio caso personalizado o explorar otras matrices</p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/admin" className="border px-4 py-2 rounded hover:bg-white transition-colors">
             Crear caso personalizado
           </Link>
-          <Link href="/matrices" className="text-primary hover:underline">
+          <Link href="/faq" className="bg-purple-100 text-purple-700 border border-purple-300 px-4 py-2 rounded hover:bg-purple-200 transition-colors">
+            ❓ Ver preguntas frecuentes
+          </Link>
+          <Link href="/matrices" className="text-primary hover:underline px-4 py-2">
             ← Volver a tipos de matrices
           </Link>
         </div>

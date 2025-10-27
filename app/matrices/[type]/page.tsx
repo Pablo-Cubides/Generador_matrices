@@ -44,8 +44,13 @@ export default async function MatrixDetailPage({ params }: { params: Promise<{ t
   const matrixData: Record<string, any> = {
     leopold: {
       title: 'Matriz de Leopold',
-      description: 'La matriz de Leopold es una herramienta clásica de evaluación de impacto ambiental desarrollada en 1971 por Luna Leopold y sus colaboradores.',
+      description: 'La matriz de Leopold es una herramienta clásica de evaluación de impacto ambiental desarrollada en 1971 por Luna Leopold y sus colaboradores del Servicio Geológico de EE.UU. (USGS).',
       formula: 'Significancia (S) = |Magnitud| × Importancia',
+      references: [
+        { title: 'Publicación original USGS (1971)', url: 'https://pubs.usgs.gov/circ/1971/0645/report.pdf' },
+        { title: 'Guía práctica matriz Leopold', url: 'https://www.isotools.us/2023/07/20/matriz-leopold-de-causa-y-efecto-para-los-impactos-ambientales/' },
+        { title: 'Análisis de causa y efecto', url: 'https://www.ecoembesthecircularcampus.com/matriz-de-leopold/' }
+      ],
       explanation: {
         magnitud: 'Grado de alteración que produce la acción sobre el factor. Escala de -10 a +10 con signo (+ beneficioso, - perjudicial).',
         importancia: 'Peso relativo del factor en el conjunto del medio ambiente. Escala de 1 a 10 (1 = poca importancia, 10 = muy importante).',
@@ -77,8 +82,13 @@ export default async function MatrixDetailPage({ params }: { params: Promise<{ t
     },
     conesa: {
       title: 'Matriz de Conesa',
-      description: 'Metodología española desarrollada por Vicente Conesa que utiliza evaluación multicriterio con 10 atributos para mayor objetividad.',
+      description: 'Metodología española desarrollada por Vicente Conesa Fernández-Vítora que utiliza evaluación multicriterio con 10 atributos para mayor objetividad en la valoración de impactos.',
       formula: 'I = 3×IN + 2×EX + MO + PE + RV + SI + AC + EF + PR + MC',
+      references: [
+        { title: 'Métodos de Evaluación de Impacto Ambiental', url: 'https://www.researchgate.net/publication/280557688_Metodos_de_Evaluacion_de_Impacto_Ambiental_en_Colombia' },
+        { title: 'Metodología Conesa aplicada', url: 'https://www.slideshare.net/slideshow/metodologia-conesa-paralaevalucionde/93381305' },
+        { title: 'Guía técnica de evaluación (IDB)', url: 'https://idbinvest.org/sites/default/files/2022-04/PAGA%20UF0%20CAP%2004%20-%20EVALUACI%C3%93N%20IMPACTOS.pdf' }
+      ],
       explanation: {
         criteria: 'IN (Intensidad), EX (Extensión), MO (Momento), PE (Persistencia), RV (Reversibilidad), SI (Sinergia), AC (Acumulación), EF (Efecto), PR (Periodicidad), MC (Recuperabilidad)',
         calculation: 'Cada criterio se evalúa en escalas específicas y se pondera según la fórmula',
@@ -110,8 +120,13 @@ export default async function MatrixDetailPage({ params }: { params: Promise<{ t
     },
     battelle: {
       title: 'Sistema Battelle-Columbus',
-      description: 'Sistema cuantitativo desarrollado por el Instituto Battelle-Columbus para evaluación objetiva mediante parámetros ambientales.',
+      description: 'Sistema cuantitativo desarrollado por el Instituto Battelle-Columbus para evaluación objetiva mediante parámetros ambientales con Unidades de Impacto Ambiental (UIA).',
       formula: 'UIA = UIP × (Calidad_con_proyecto - Calidad_sin_proyecto)',
+      references: [
+        { title: 'Sistema de Evaluación Ambiental Battelle', url: 'https://uon.sdsu.edu/el_sea_de_battelle.html' },
+        { title: 'EIA Methodology - Battelle Approach', url: 'https://ebooks.inflibnet.ac.in/esp12/chapter/eia-methodology/' },
+        { title: 'The Battelle Environmental Evaluation System', url: 'https://uon.sdsu.edu/the_battelle_ees.html' }
+      ],
       explanation: {
         uip: 'Unidades de Importancia del Parámetro: peso relativo (0-1), suma total = 1',
         quality: 'Calidad ambiental: valor de 0 a 1 (0 = mínima calidad, 1 = máxima calidad)',
@@ -208,15 +223,55 @@ export default async function MatrixDetailPage({ params }: { params: Promise<{ t
         </div>
       </div>
 
+      {/* Referencias académicas y técnicas */}
+      {matrix.references && matrix.references.length > 0 && (
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6">
+          <h3 className="text-xl font-bold mb-4 flex items-center">
+            <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+            </svg>
+            Referencias y documentación técnica
+          </h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Consulta estas fuentes académicas y técnicas para profundizar en la metodología:
+          </p>
+          <ul className="space-y-3">
+            {matrix.references.map((ref: any, index: number) => (
+              <li key={index} className="flex items-start">
+                <svg className="w-4 h-4 mr-2 mt-1 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd" />
+                </svg>
+                <a 
+                  href={ref.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-blue-700 hover:underline text-sm"
+                >
+                  {ref.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="bg-gradient-to-r from-primary to-accent text-white rounded-lg p-8 text-center">
         <h2 className="text-2xl font-bold mb-4">¿Listo para aplicar {matrix.title}?</h2>
         <p className="text-lg mb-6">Elige un caso de estudio para ver cómo se aplica esta matriz paso a paso</p>
-        <Link 
-          href={`/matrices/${type}/casos`}
-          className="inline-block bg-white text-primary px-8 py-3 rounded-lg text-lg font-semibold hover:shadow-lg transition-shadow"
-        >
-          Siguiente: Elegir caso de estudio →
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link 
+            href={`/matrices/${type}/casos`}
+            className="inline-block bg-white text-primary px-8 py-3 rounded-lg text-lg font-semibold hover:shadow-lg transition-shadow"
+          >
+            Siguiente: Elegir caso de estudio →
+          </Link>
+          <Link 
+            href="/faq"
+            className="inline-block bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-primary transition-colors"
+          >
+            ¿Dudas? Ver FAQ
+          </Link>
+        </div>
       </div>
     </div>
   );

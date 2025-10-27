@@ -134,25 +134,36 @@ export default async function Comparar({ params }: { params: Promise<{ caseId: s
       </div>
 
       {/* Acciones */}
-      <div className="mt-8 flex justify-center gap-4">
-        <a 
-          href={`/builder/${caseId}/leopold`} 
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
-        >
-          📊 Continuar con Leopold
-        </a>
-        <a 
-          href={`/builder/${caseId}/conesa`} 
-          className="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition-colors"
-        >
-          ⚖️ Continuar con Conesa
-        </a>
-        <a 
-          href={`/builder/${caseId}/battelle`} 
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          🔬 Continuar with Battelle
-        </a>
+      <div className="mt-8 space-y-4">
+        <div className="flex justify-center gap-4">
+          <a 
+            href={`/builder/${caseId}/leopold`} 
+            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+          >
+            📊 Continuar con Leopold
+          </a>
+          <a 
+            href={`/builder/${caseId}/conesa`} 
+            className="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition-colors"
+          >
+            ⚖️ Continuar con Conesa
+          </a>
+          <a 
+            href={`/builder/${caseId}/battelle`} 
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            🔬 Continuar with Battelle
+          </a>
+        </div>
+        
+        <div className="flex justify-center">
+          <a 
+            href="/faq" 
+            className="bg-purple-100 text-purple-700 border-2 border-purple-300 px-6 py-3 rounded-lg hover:bg-purple-200 transition-colors inline-flex items-center gap-2"
+          >
+            ❓ ¿Dudas sobre cuál metodología elegir? Ver FAQ
+          </a>
+        </div>
       </div>
     </div>
   );

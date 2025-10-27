@@ -294,13 +294,18 @@ export default function Builder({ params }: { params: Promise<{ caseId: string; 
                   <div>• Establecer plan de monitoreo</div>
                   <div>• Comparar con otras matrices</div>
                 </div>
-                <div className="mt-4 flex gap-2">
-                  <a href={`/comparar/${caseId}`} className="inline-block bg-accent text-white px-4 py-2 rounded text-sm">
-                    Comparar matrices →
-                  </a>
-                  <div className="text-sm text-gray-600 bg-green-100 px-3 py-2 rounded border">
-                    ✅ Exportación disponible en la matriz
+                <div className="mt-4 flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <a href={`/comparar/${caseId}`} className="inline-block bg-accent text-white px-4 py-2 rounded text-sm">
+                      Comparar matrices →
+                    </a>
+                    <div className="text-sm text-gray-600 bg-green-100 px-3 py-2 rounded border">
+                      ✅ Exportación disponible en la matriz
+                    </div>
                   </div>
+                  <a href="/faq" className="inline-block text-center bg-purple-100 text-purple-700 border border-purple-300 px-4 py-2 rounded text-sm hover:bg-purple-200 transition-colors">
+                    ❓ ¿Dudas sobre la metodología? Ver FAQ
+                  </a>
                 </div>
               </div>
             </div>
