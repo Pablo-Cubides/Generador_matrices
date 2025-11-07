@@ -1,10 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Action, Factor, ImpactoBase } from '../../../../src/types';
-import LeopoldGrid from '../../../../src/components/LeopoldGrid';
-import LeopoldMatrix from '../../../../src/components/LeopoldMatrix';
-import ConesaForm from '../../../../src/components/ConesaForm';
-import BattelleTable from '../../../../src/components/BattelleTable';
+import { Action, Factor, ImpactoBase } from '@/types';
+import LeopoldGrid from '@/components/LeopoldGrid';
+import LeopoldMatrix from '@/components/LeopoldMatrix';
+import ConesaForm from '@/components/ConesaForm';
+import BattelleTable from '@/components/BattelleTable';
 
 export default function Builder({ params }: { params: Promise<{ caseId: string; matriz: string }> }) {
   const [resolvedParams, setResolvedParams] = useState<{ caseId: string; matriz: string } | null>(null);

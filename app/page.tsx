@@ -1,12 +1,18 @@
-import fs from 'fs';
-import path from 'path';
-import HeroTabs from '../src/components/HeroTabs';
+'use client';
+
+import { useState, useEffect } from 'react';
+import HeroTabs from '@/components/HeroTabs';
 
 export default function Home() {
-  // Read parsed knowledge JSON if available
-  const kbPath = path.join(process.cwd(), 'content', 'knowledge', 'knowledge.json');
-  let knowledge = { fundamentos: [] } as any;
-  try { knowledge = JSON.parse(fs.readFileSync(kbPath, 'utf8')); } catch (e) { /* ignore */ }
+  const [knowledge, setKnowledge] = useState({ fundamentos: [] });
+
+  useEffect(() => {
+    // Load knowledge from public folder (works in monorepo)
+    fetch('/knowledge/knowledge.json')
+      .then(res => res.ok ? res.json() : { fundamentos: [] })
+      .then(data => setKnowledge(data))
+      .catch(() => setKnowledge({ fundamentos: [] }));
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto">

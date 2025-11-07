@@ -1,8 +1,8 @@
-import LeopoldGrid from '../../../src/components/LeopoldGrid';
-import LeopoldMatrix from '../../../src/components/LeopoldMatrix';
-import ConesaForm from '../../../src/components/ConesaForm';
-import BattelleTable from '../../../src/components/BattelleTable';
-import { ImpactoBase } from '../../../src/types';
+import LeopoldGrid from '@/components/LeopoldGrid';
+import LeopoldMatrix from '@/components/LeopoldMatrix';
+import ConesaForm from '@/components/ConesaForm';
+import BattelleTable from '@/components/BattelleTable';
+import { ImpactoBase } from '@/types';
 
 const sampleCases = [
   { id: 'vias', sector: 'Infraestructura', nombre: 'Construcción de Vía Regional', descripcion: 'Construcción de tramo vial', matrices: ['leopold', 'conesa', 'battelle'] },
